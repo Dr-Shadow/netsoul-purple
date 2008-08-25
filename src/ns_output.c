@@ -127,15 +127,15 @@ char	*get_good_msg_user(PurpleConnection *gc, const char *who)
   char		*resp;
 
   tab = g_strsplit(who, "@", 2);
-  // look for a buddy
+  /* look for a buddy */
   if (!(gb = purple_find_buddy(purple_connection_get_account(gc), who)))
     if (!(gb = purple_find_buddy(purple_connection_get_account(gc), *tab))) {
-      // if we don't have a buddy, return the login
+      /* if we don't have a buddy, return the login */
       resp = g_strdup(*tab);
       g_strfreev(tab);
       return resp;
     }
-  // if we have a buddy for who, find the good place to send to
+  /* if we have a buddy for who, find the good place to send to */
   nb = gb->proto_data;
   if ((nb->state == NS_STATE_SEVERAL_ACTIF)
       || (nb->state == NS_STATE_SEVERAL_INACTIF))

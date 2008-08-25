@@ -33,7 +33,7 @@ void	ns_use_rep(PurpleConnection *gc, char **msg)
       purple_debug_info("netsoul", "end ns_use_rep\n");
       purple_connection_set_state(gc, PURPLE_CONNECTED);
       purple_debug_info("netsoul", "end ns_use_rep\n");
-      //serv_finish_login(gc);
+      /* serv_finish_login(gc); */
       ns_send_state(gc, NS_STATE_ACTIF, time(NULL));
       ns_list_users(gc, ns->watchlist);
       return;
@@ -132,7 +132,7 @@ void	ns_buddy_got_user_state(PurpleConnection *gc, char **who, char *state)
   tab = g_strsplit(state, ":", 0);
   speclogin = convertname(who);
 
-  // get the gaimbuddy
+  /* get the gaimbuddy */
   if (!(gb = get_good_stored_buddy(gc, speclogin))) {
       g_strfreev(tab);
       g_free(speclogin);
@@ -140,15 +140,15 @@ void	ns_buddy_got_user_state(PurpleConnection *gc, char **who, char *state)
     }
 
   nb = gb->proto_data;
-  // find the corresponding id
+  /* find the corresponding id */
   if (!(nc = find_conn_id(nb, atoi(*who)))) {
-    // not possible
+    /* not possible */
     g_strfreev(tab);
     g_free(speclogin);
     return;
   }
 
-  // if id exists in list, update it
+  /* if id exists in list, update it */
   nc->state = ns_text_to_state(*tab);
   if (tab[1])
     nc->statetime = atol(tab[1]);
@@ -156,7 +156,7 @@ void	ns_buddy_got_user_state(PurpleConnection *gc, char **who, char *state)
     nc->statetime = time(NULL);
 
   g_strfreev(tab);
-  // update buddy state
+  /* update buddy state */
   ns_compute_update_state(gc, gb);
 }
 
@@ -172,7 +172,7 @@ void	ns_user_update(PurpleConnection *gc, char **msg)
   msg2 = g_strsplit(msg[1], " ", 0);
   speclogin = g_strdup_printf("%s@%s", *msg2, url_decode(msg2[7]));
   purple_debug_info("netsoul", "ns_user_update : %s[%s]\n", speclogin, *msg);
-  // get the gaimbuddy
+  /* get the gaimbuddy */
   if (!(gb = get_good_stored_buddy(gc, speclogin))) {
       g_free(speclogin);
       g_strfreev(msg2);
@@ -183,9 +183,9 @@ void	ns_user_update(PurpleConnection *gc, char **msg)
 
   if (!nb->group)
     nb->group = g_strdup(msg2[8]);
-  // find the corresponding id
+  /* find the corresponding id */
   if (!(nc = find_conn_id(nb, atoi(*msg)))) {
-    // if not, create new NetsoulConn and add it to list
+    /* if not, create new NetsoulConn and add it to list */
     nc = g_new0(NetsoulConn, 1);
     nc->id = atoi(*msg);
     nc->logintime = atol(msg2[2]);
@@ -201,7 +201,7 @@ void	ns_user_update(PurpleConnection *gc, char **msg)
     nb->locationlist = g_list_append(nb->locationlist, nc);
     nb->nblocations++;
   } else {
-    // if id exists in list, update it
+    /* if id exists in list, update it */
     nc->state = ns_text_to_state(*tab);
     if (tab[1])
       nc->statetime = atol(tab[1]);
@@ -209,7 +209,7 @@ void	ns_user_update(PurpleConnection *gc, char **msg)
   g_free(speclogin);
   g_strfreev(tab);
   g_strfreev(msg2);
-  // update buddy state
+  /* update buddy state */
   ns_compute_update_state(gc, gb);
 }
 
@@ -225,7 +225,7 @@ void	ns_buddy_got_user_logout(PurpleConnection *gc, char **who)
   NetsoulConn	*nc;
   char		*speclogin;
 
-  // find the corresponding id
+  /* find the corresponding id */
   speclogin = convertname(who);
   purple_debug_info("netsoul", "ns_buddy_got_user_logout %s\n", speclogin);
   if (!(gb = get_good_stored_buddy(gc, speclogin))) {
@@ -234,15 +234,15 @@ void	ns_buddy_got_user_logout(PurpleConnection *gc, char **who)
     }
   nb = gb->proto_data;
   if (!(nc = find_conn_id(nb, atoi(*who)))) {
-    // not possible
+    /* not possible */
     g_free(speclogin);
     return;
   } else {
-    // if id exists in list, remove it
+    /* if id exists in list, remove it */
     nb->locationlist = g_list_remove(nb->locationlist, nc);
     nb->nblocations--;
   }
-  // update buddy state
+  /* update buddy state */
   ns_compute_update_state(gc, gb);
   g_free(speclogin);
 }

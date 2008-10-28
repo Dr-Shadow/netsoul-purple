@@ -197,7 +197,7 @@ void	ns_compute_update_state(PurpleConnection *gc, PurpleBuddy *gb)
     idle = nb->laststate;
 
   purple_debug_info("netsoul", "idle:%d state:%d\n", idle, nb->state);
-  char *state_text state_text = ns_state_to_text(nb->state);
+  char *state_text = ns_state_to_text(nb->state);
 //  purple_debug_info("netsoul", "status_update %s, log:%d, signon:%lld, idle:%d, state:%s\n",
 //		  gb->name, loggedin, nb->signon, idle, state_text);
   /* Inform Purple that status changed */

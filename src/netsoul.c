@@ -311,7 +311,7 @@ static void netsoul_add_buddy (PurpleConnection *gc, PurpleBuddy *buddy, PurpleG
   buddy->proto_data = nb;
   nb->login = g_strdup(buddy->name);
   // Get photo
-  photo = g_strdup_printf("%s%s", NETSOUL_PHOTO_URL, buddy->name);
+  photo = g_strdup_printf("%s%s.png", NETSOUL_PHOTO_URL, buddy->name);
 
   purple_util_fetch_url(photo, TRUE, NULL, FALSE, netsoul_got_photo, buddy);
 
@@ -376,7 +376,7 @@ void netsoul_get_buddies (PurpleConnection* gc)
 	  buddy->proto_data = nb;
 	  nb->login = g_strdup(buddy->name);
 	  // Get photo
-	  photo = g_strdup_printf("%s%s", NETSOUL_PHOTO_URL, buddy->name);
+	  photo = g_strdup_printf("%s%s.png", NETSOUL_PHOTO_URL, buddy->name);
 
 	  purple_util_fetch_url(photo, TRUE, NULL, FALSE, netsoul_got_photo, buddy);
 

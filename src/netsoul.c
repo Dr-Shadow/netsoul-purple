@@ -172,7 +172,7 @@ static GList * netsoul_away_states (PurpleAccount* account)
 				     NULL, NULL, TRUE, TRUE, FALSE);
   types = g_list_append(types, status);
   status = purple_status_type_new_full(PURPLE_STATUS_AVAILABLE,
-				     "actif", NULL, FALSE, TRUE, FALSE);
+				     "active", NULL, FALSE, TRUE, FALSE);
   types = g_list_append(types, status);
 
   status = purple_status_type_new_full(PURPLE_STATUS_AWAY,
@@ -272,7 +272,7 @@ static void netsoul_got_photo (PurpleUtilFetchUrlData *url, void *user_data,
   if (gc == NULL)
     return;
 
-  purple_debug_info("netsoul", "netsoul_got_photo (size: %d) for %s\n",
+  purple_debug_info("netsoul", "netsoul_got_photo (size: %lu) for %s\n",
 		    len,
 		    gb->name);
 
@@ -547,7 +547,7 @@ __attribute__((unused)) static void netsoul_chat_invite(PurpleConnection *gc, in
   purple_debug_info("netsoul", "chat_invite\n");
 }
 
-__attribute__((unused)) static int netsoul_chat_send(PurpleConnection *gc, int id, const char *message)
+static int netsoul_chat_send(PurpleConnection *gc, int id, const char *message, PurpleMessageFlags flags)
 {
   purple_debug_info("netsoul", "chat_send\n");
   return 0;
@@ -585,13 +585,13 @@ static PurplePluginProtocolInfo prpl_info =
     NULL,                           /* rem_permit       */
     NULL,                           /* rem_deny         */
     NULL,                           /* set_permit_deny  */
-    NULL/*netsoul_join_chat*/,              /* join_chat        */
-    NULL/*netsoul_reject_chat*/,            /* reject_chat      */
-    NULL,				    /* get_chat_name	*/
-    NULL/*netsoul_chat_invite*/,            /* chat_invite      */
+    netsoul_join_chat,              /* join_chat        */
+    netsoul_reject_chat,            /* reject_chat      */
+    NULL,                           /* get_chat_name    */
+    netsoul_chat_invite,            /* chat_invite      */
     NULL,                           /* chat_leave       */
     NULL,                           /* chat_whisper     */
-    NULL /*netsoul_chat_send*/,              /* chat_send        */
+    netsoul_chat_send,              /* chat_send        */
     netsoul_keepalive,              /* keepalive        */
     NULL,                           /* register_user    */
     NULL,                           /* get_cb_info      */
@@ -612,10 +612,10 @@ static PurplePluginProtocolInfo prpl_info =
     NULL,                           /* roomlist_expand_catagory */
     NULL,                           /* can_receive_file */
     NULL,                           /* send_file        */
-    NULL,		       	    /* new_xfer */
-    NULL,			    /* offline_message */
-    NULL,			    /* whiteboard_prpl_ops */
-    NULL			    /* send_raw */
+    NULL,                           /* new_xfer */
+    NULL,                           /* offline_message */
+    NULL,                           /* whiteboard_prpl_ops */
+    NULL                            /* send_raw */
 };
 
 

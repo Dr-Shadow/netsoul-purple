@@ -312,8 +312,8 @@ static void netsoul_add_buddy (PurpleConnection *gc, PurpleBuddy *buddy, PurpleG
   nb->login = g_strdup(buddy->name);
   // Get photo
   photo = g_strdup_printf("%s%s.png", NETSOUL_PHOTO_URL, buddy->name);
-
-  purple_util_fetch_url(photo, TRUE, NULL, FALSE, netsoul_got_photo, buddy);
+  purple_debug_info("netsoul", "url: %s%s.png\n");
+  purple_util_fetch_url(photo, TRUE, "Mozilla/5.0", FALSE, &netsoul_got_photo, buddy);
 
   // if contact is not already is watch list, add it
   ns_watch_buddy(gc, buddy);
@@ -376,9 +376,9 @@ void netsoul_get_buddies (PurpleConnection* gc)
 	  buddy->proto_data = nb;
 	  nb->login = g_strdup(buddy->name);
 	  // Get photo
+	  purple_debug_info("netsoul", "get photo %s%s.png\n", NETSOUL_PHOTO_URL, buddy->name);
 	  photo = g_strdup_printf("%s%s.png", NETSOUL_PHOTO_URL, buddy->name);
-
-	  purple_util_fetch_url(photo, TRUE, NULL, FALSE, netsoul_got_photo, buddy);
+	  purple_util_fetch_url(photo, TRUE, "Mozilla/5.0", FALSE, &netsoul_got_photo, buddy);
 
 	  // if contact is not already is watch list, add it
 	  ns_watch_buddy(gc, buddy);

@@ -265,7 +265,8 @@ static void netsoul_got_photo (PurpleUtilFetchUrlData *url, void *user_data,
 {
   PurpleBuddy *gb = user_data;
   PurpleAccount *account = purple_buddy_get_account (gb);
-
+  if (account == NULL)
+    return ;
   // Check if connection is still existing
   PurpleConnection *gc = purple_account_get_connection (account);
   if (gc == NULL)
@@ -286,7 +287,7 @@ static void netsoul_got_photo (PurpleUtilFetchUrlData *url, void *user_data,
     {
       PurpleStoredImage *img = purple_imgstore_add(g_memdup(photo, len), len, NULL);
       PurpleBuddyIcon *icon = purple_buddy_icon_new(account, gb->name,
-						    purple_imgstore_get_data(img),
+						    (void*)purple_imgstore_get_data(img),
 						    purple_imgstore_get_size(img),
 						    NULL);
       purple_buddy_set_icon(gb, icon);
@@ -312,8 +313,7 @@ static void netsoul_add_buddy (PurpleConnection *gc, PurpleBuddy *buddy, PurpleG
   nb->login = g_strdup(buddy->name);
   // Get photo
   photo = g_strdup_printf("%s%s.png", NETSOUL_PHOTO_URL, buddy->name);
-  purple_debug_info("netsoul", "url: %s%s.png\n");
-  purple_util_fetch_url(photo, TRUE, "Mozilla/5.0", FALSE, &netsoul_got_photo, buddy);
+    purple_util_fetch_url(photo, TRUE, "Mozilla/5.0", FALSE, &netsoul_got_photo, buddy);
 
   // if contact is not already is watch list, add it
   ns_watch_buddy(gc, buddy);
@@ -532,22 +532,22 @@ static GList *netsoul_blist_node_menu(PurpleBlistNode *node)
     return NULL;
 }
 
-static void netsoul_join_chat(PurpleConnection *gc, GHashTable *components)
+__attribute__((unused)) static void netsoul_join_chat(PurpleConnection *gc, GHashTable *components)
 {
    purple_debug_info("netsoul", "join_chat\n");
 }
 
-static void netsoul_reject_chat(PurpleConnection *gc, GHashTable *components)
+__attribute__((unused)) static void netsoul_reject_chat(PurpleConnection *gc, GHashTable *components)
 {
   purple_debug_info("netsoul", "reject_chat\n");
 }
 
-static void netsoul_chat_invite(PurpleConnection *gc, int id, const char *who, const char *message)
+__attribute__((unused)) static void netsoul_chat_invite(PurpleConnection *gc, int id, const char *who, const char *message)
 {
   purple_debug_info("netsoul", "chat_invite\n");
 }
 
-static int netsoul_chat_send(PurpleConnection *gc, int id, const char *message)
+__attribute__((unused)) static int netsoul_chat_send(PurpleConnection *gc, int id, const char *message)
 {
   purple_debug_info("netsoul", "chat_send\n");
   return 0;

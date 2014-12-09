@@ -56,6 +56,7 @@
 #define NETSOUL_DEFAULT_COMMENT "netsoul-purple"
 
 #define NETSOUL_PHOTO_URL "http://cdn.local.epitech.eu/userprofil/profilview/"
+#define NETSOUL_INVALID_PHOTO_URL "http://image.noelshack.com/fichiers/2014/50/1418121827-error.png"
 
 #define NS_BUF_LEN 4096
 
@@ -126,6 +127,8 @@ void netsoul_get_buddies (PurpleConnection* gc);
   ns_buddy.c
 */
 
+gboolean        ns_is_valid_login(char *login);
+gboolean        ns_is_valid_login_char(char c);
 void	ns_watch_buddy(PurpleConnection *gc, PurpleBuddy *gb);
 int	ns_text_to_state(char *state);
 char	*ns_state_to_text(int state);

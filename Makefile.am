@@ -1,12 +1,11 @@
-EXTRA_DIST = \
-	COPYING \
-	ChangeLog \
-	INSTALL \
-	NEWS \
-	PROTOCOL \
-	README \
-	VERSION \
-	gaim-netsoul.spec \
+EXTRA_DIST =			\
+	LICENSE			\
+	AUTHORS			\
+	ChangeLog		\
+	INSTALL			\
+	README			\
+	VERSION			\
+	gaim-netsoul.spec	\
 	netsoul_config.h
 ACLOCAL_AMFLAGS = -I m4
 

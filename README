@@ -1,14 +1,15 @@
-gaim-snpp:
-	Protocol Plugin (prpl) for Gaim for the netsoul IM protocol.
+Netsoul_Pidgin
+==============
+Protocol Plugin for Pidgin for the netsoul IM protocol.
 
 About
 =====
-	Netsoul is an instant messagin protocol for the students of EPITA/EPITECH.
+Netsoul is an instant messagin protocol for the students of EPITA/EPITECH.
 
 INSTALL
 =======
-    Please see the INSTALL file
+Please see the INSTALL file
 
 LICENSE
 =======
-    This software is licensed under the GPL v2.  See COPYING for full text of license.
+This software is licensed under the GPL v2.  See LICENSE for full text of license.

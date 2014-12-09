@@ -1,8 +1,8 @@
 #! /bin/sh
-echo "Generating configuration files for Gaim-Netsoul, please wait...."
+echo "Generating configuration files for Netsoul_Pidgin, please wait..."
 echo;
 
-echo "Running libtoolize, please ignore non-fatal messages...."
+echo "Running libtoolize, please ignore non-fatal messages..."
 echo n | libtoolize --copy --force || exit;
 echo;
 

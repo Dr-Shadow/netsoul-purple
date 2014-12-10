@@ -49,7 +49,7 @@ gboolean	ns_is_valid_login(char *login)
 gboolean	ns_is_valid_login_char(char c)
 {
   if ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') ||
-      c == '_' || c == '.')
+      c == '_' || c == '.' || c == '-')
     return TRUE;
   return FALSE;
 }

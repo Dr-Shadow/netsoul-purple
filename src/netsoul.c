@@ -283,6 +283,15 @@ static void netsoul_close (PurpleConnection *gc)
     purple_input_remove(gc->inpa);
 }
 
+/*
+  netsoul_got_photo_url
+ */
+static gchar* netsoul_got_photo_url(PurpleBuddy *buddy)
+{
+  if (!ns_is_valid_login(buddy->name))
+    return g_strdup(NETSOUL_INVALID_PHOTO_URL);
+  return g_strdup_printf("%s%s.png", NETSOUL_PHOTO_URL, buddy->name);
+}
 
 /*
  netsoul_got_photo
@@ -340,7 +349,7 @@ static void netsoul_add_buddy (PurpleConnection *gc, PurpleBuddy *buddy, PurpleG
   buddy->proto_data = nb;
   nb->login = g_strdup(buddy->name);
   /* Get photo */
-  photo = g_strdup_printf("%s%s.png", NETSOUL_PHOTO_URL, buddy->name);
+  photo = netsoul_got_photo_url(buddy);
   purple_util_fetch_url(photo, FALSE, "Mozilla/5.0", FALSE, &netsoul_got_photo, buddy);
 
   /* if contact is not already is watch list, add it */
@@ -404,8 +413,8 @@ void netsoul_get_buddies (PurpleConnection* gc)
 	  buddy->proto_data = nb;
 	  nb->login = g_strdup(buddy->name);
 	  /* Get photo */
-	  purple_debug_info("netsoul", "get photo %s%s.png\n", NETSOUL_PHOTO_URL, buddy->name);
-	  photo = g_strdup_printf("%s%s.png", NETSOUL_PHOTO_URL, buddy->name);
+	  photo = netsoul_got_photo_url(buddy);
+	  purple_debug_info("netsoul", "get photo %s\n", photo);
 	  purple_util_fetch_url(photo, FALSE, "Mozilla/5.0", FALSE, &netsoul_got_photo, buddy);
 
 	  /* if contact is not already is watch list, add it */

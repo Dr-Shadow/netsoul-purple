@@ -24,6 +24,37 @@
 #include "netsoul.h"
 
 /*
+  ns_is_valid_login
+  Check if the given login is valid
+*/
+
+gboolean	ns_is_valid_login(char *login)
+{
+  int		i;
+
+  if (!login)
+    return FALSE;
+  i = 0;
+  while (login[i])
+    {
+      if (!ns_is_valid_login_char(login[i]))
+	return FALSE;
+      i++;
+    }
+  if (i == 0)
+    return FALSE;
+  return TRUE;
+}
+
+gboolean	ns_is_valid_login_char(char c)
+{
+  if ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') ||
+      c == '_' || c == '.' || c == '-')
+    return TRUE;
+  return FALSE;
+}
+
+/*
   ns_watch_buddy
   Add the given buddy to the netsoul watchlist
 */
@@ -35,6 +66,13 @@ void	ns_watch_buddy(PurpleConnection *gc, PurpleBuddy *gb)
   char	**login;
 
   login = g_strsplit(gb->name, "@", 2);
+  if (!ns_is_valid_login(*login))
+    {
+      purple_debug_info("netsoul", "ns_watch_buddy: invalid login: '%s'\n",
+			*login);
+      g_strfreev(login);
+      return ;
+    }
   purple_debug_info("netsoul", "ns_watch_buddy: %s\n", *login);
   nb = g_new0(NetsoulBuddy, 1);
   gb->proto_data = nb;

@@ -46,12 +46,12 @@ fi
 AC_SUBST(CFLAGS)
 
 #
-# Check for Gaim
+# Check for Pidgin
 #
 
 PKG_CHECK_MODULES(PIDGIN, pidgin,
 [
-   AC_DEFINE(HAVE_PIDGIN, 1, [Define if we've found gaim.])
+   AC_DEFINE(HAVE_PIDGIN, 1, [Define if we've found pidgin.])
 ])
 
 AC_SUBST(PIDGIN_CFLAGS)
@@ -61,7 +61,7 @@ AC_SUBST(PIDGIN_CFLAGS)
 #
 
 AM_PATH_GLIB_2_0(2.0.0,,AC_MSG_ERROR([
-*** GLib 2.0 is required to build gaim-netsoul; please make sure you have
+*** GLib 2.0 is required to build Netsoul-Pidgin; please make sure you have
 *** the GLib development headers installed. The latest version of GLib is
 *** always available at http://www.gtk.org/.]))
 AC_SUBST(GLIB_CFLAGS)
@@ -84,7 +84,6 @@ LIBTOOL="$LIBTOOL --silent"
 AC_CONFIG_HEADERS(pre_config.h)
 AC_CONFIG_MACRO_DIR([m4])
 AC_OUTPUT([Makefile
-		gaim-netsoul.spec
 		pixmaps/Makefile
 		src/Makefile
 		  ])

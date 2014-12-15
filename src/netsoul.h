@@ -48,7 +48,7 @@
 #include "cipher.h"
 #include "imgstore.h"
 
-#define NETSOUL_WEBSITE "http://projects.irq6.net/projects/show/netsoul-purple"
+#define NETSOUL_WEBSITE "https://github.com/Dr-Shadow/netsoul-purple"
 
 #define NETSOUL_DEFAULT_SERVER "ns-server.epita.fr"
 #define NETSOUL_DEFAULT_PORT 4242
